@@ -1,37 +1,17 @@
-## Welcome to GitHub Pages
+## 内容导航
 
-You can use the [editor on GitHub](https://github.com/violet712/violet712.github.io/edit/main/README.md) to maintain and preview the content for your website in Markdown files.
-
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
-
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/violet712/violet712.github.io/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+| 章节                                                         | 习题                                                         | 相关项目                                                     |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| [第一章 强化学习概述](https://datawhalechina.github.io/easy-rl/#/chapter1/chapter1) | [第一章 习题](https://datawhalechina.github.io/easy-rl/#/chapter1/chapter1_questions&keywords) |                                                              |
+| [第二章 马尔可夫决策过程 (MDP)](https://datawhalechina.github.io/easy-rl/#/chapter2/chapter2) | [第二章 习题](https://datawhalechina.github.io/easy-rl/#/chapter2/chapter2_questions&keywords) |                                                              |
+| [第三章 表格型方法](https://datawhalechina.github.io/easy-rl/#/chapter3/chapter3) | [第三章 习题](https://datawhalechina.github.io/easy-rl/#/chapter3/chapter3_questions&keywords) | [Q-learning算法实战](https://datawhalechina.github.io/easy-rl/#/chapter3/project1) |
+| [第四章 策略梯度](https://datawhalechina.github.io/easy-rl/#/chapter4/chapter4) | [第四章 习题](https://datawhalechina.github.io/easy-rl/#/chapter4/chapter4_questions&keywords) |                                                              |
+| [第五章 近端策略优化 (PPO) 算法](https://datawhalechina.github.io/easy-rl/#/chapter5/chapter5) | [第五章 习题](https://datawhalechina.github.io/easy-rl/#/chapter5/chapter5_questions&keywords) |                                                              |
+| [第六章 DQN (基本概念)](https://datawhalechina.github.io/easy-rl/#/chapter6/chapter6) | [第六章 习题](https://datawhalechina.github.io/easy-rl/#/chapter6/chapter6_questions&keywords) |                                                              |
+| [第七章 DQN (进阶技巧)](https://datawhalechina.github.io/easy-rl/#/chapter7/chapter7) | [第七章 习题](https://datawhalechina.github.io/easy-rl/#/chapter7/chapter7_questions&keywords) | [DQN算法实战](https://datawhalechina.github.io/easy-rl/#/chapter7/project2) |
+| [第八章 DQN (连续动作)](https://datawhalechina.github.io/easy-rl/#/chapter8/chapter8) | [第八章 习题](https://datawhalechina.github.io/easy-rl/#/chapter8/chapter8_questions&keywords) |                                                              |
+| [第九章 演员-评论家算法](https://datawhalechina.github.io/easy-rl/#/chapter9/chapter9) | [第九章 习题](https://datawhalechina.github.io/easy-rl/#/chapter9/chapter9_questions&keywords) |                                                              |
+| [第十章 稀疏奖励](https://datawhalechina.github.io/easy-rl/#/chapter10/chapter10) | [第十章 习题](https://datawhalechina.github.io/easy-rl/#/chapter10/chapter10_questions&keywords) |                                                              |
+| [第十一章 模仿学习](https://datawhalechina.github.io/easy-rl/#/chapter11/chapter11) | [第十一章 习题](https://datawhalechina.github.io/easy-rl/#/chapter11/chapter11_questions&keywords) |                                                              |
+| [第十二章 深度确定性策略梯度 (DDPG) 算法](https://datawhalechina.github.io/easy-rl/#/chapter12/chapter12) | [第十二章 习题](https://datawhalechina.github.io/easy-rl/#/chapter12/chapter12_questions&keywords) | [DDPG算法实战](https://datawhalechina.github.io/easy-rl/#/chapter12/project3) |
+| [第十三章 AlphaStar 论文解读](https://datawhalechina.github.io/easy-rl/#/chapter13/chapter13) |                                                              |                                                              |
