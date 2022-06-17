@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href="<../style.css>">
+<link rel="stylesheet" type="text/css" href="<../../style.css>">
 
 # Average-Reward Off-Policy Policy Evaluation with Function Approximation
 
@@ -52,3 +52,12 @@ where $C-\lim _{T \rightarrow \infty} z_{T} \doteq \lim _{T \rightarrow \infty} 
 
 为了保证Cesaro收敛,做出如下假设:
 **Assumption 2.1. Policy $\pi$ induces a unichain**
+
+```
+1. w.r.t.   ------- with respect to 常用于求导，或者满足一定条件之类的情况
+2. s.t.     ------- subject to  约束与
+3. r.v.     ------- random variable 随机变量
+4. i.f.f.      ------- if and only if
+5. i.i.d.  ------- independently and identically distributed 独立同分布
+```
+ 
