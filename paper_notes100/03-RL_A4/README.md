@@ -50,6 +50,8 @@ $$r(\pi, s) \doteq \lim _{n \rightarrow \infty} \frac{1}{n} \sum_{t=1}^{n} \math
 
 > $\bar{R}_{t}$: 给定 $\pi_t$ 时, 在时刻 t 对平均收益 $r(\pi)$ 的估计.
 
+> I{...}: 指示函数,事件的指标函数是一个随机变量，当事件发生时取值为 1，当事件不发生时取值为 0
+
 ## 3. Empirical Results for Control
 ![fig1](https://pdf.cdn.readpaper.com/parsed/fetch_target/522a86da182392db5e9ba9f951ad8aa1_3_Figure_1.png)
 Access-Control Queuing task ***(see: B3, Example 10.2)***
