@@ -25,9 +25,13 @@ Solution methods for these problems can be divided into,
 
 > 基于模型的方法将**规划**作为其主要组成部分, 而无模型的方法则主要依赖于**学习**. 这两类方法的核心都是价值函数的计算. 此外, 所有的方法都基于对未来事件的展望, 来计算一个回溯价值, 然后使用它作为目标来更新一个近似价值函数. 强化学习中，初始的环境是未知的，智能体与环境进行交互，然后智能体提升自身的策略；而规划方法中，环境的模型是已知的，智能体不需与环境进行交互，只需根据其模型来做计算，然后提升策略.
 
+***前置知识***
+
 > **RVI Q-learning:** relative value iteration (RVI) Q-learning,
 
 > **reference function (引用函数):** RVI Q-learning is actually a family of off-policy algorithms, a particular member of which is determined by *specifying a function that references the estimated values of specific state–action pairs and produces an estimate of the reward rate*.
+
+> We assume that under the target policy there is only one possible limiting distribution for the resulting Markov chain, independent of the start state. This is known as the Markov chain being *unichain*.
 
 **创新点:**
 
@@ -58,12 +62,20 @@ Access-Control Queuing task ***(see: B3, Example 10.2)***
 
 ## 4. Learning and Planning for Prediction
 
+$$\begin{aligned}
+r(\pi) & \doteq \lim _{h \rightarrow \infty} \frac{1}{h} \sum_{t=1}^{h} \mathbb{E}\left[R_{t} \mid A_{0: t-1} \sim \pi\right] \\
+&=\lim _{t \rightarrow \infty} \mathbb{E}\left[R_{t} \mid A_{0: t-1} \sim \pi\right], \\
+&=\sum_{s} \mu_{\pi}(s) \sum_{a} \pi(a \mid s) \sum_{s^{\prime}, r} p\left(s^{\prime}, r \mid s, a\right) r
+\end{aligned}$$
+
+This inner term is the expected reward in a state under policy $\pi$. The outer sum takes the expectation over how frequently the policy is in that state. Together, we get the expected reward across states. In other words, the average reward for a policy.
+
 ## 5. Empirical Results for Prediction
+
+![fig2](https://pdf.cdn.readpaper.com/parsed/fetch_target/522a86da182392db5e9ba9f951ad8aa1_4_Figure_2.png)
 
 ## 6. Estimating the Actual Differential Value Function
 
 ## 7. Discussion and Future Work
-
-![fig2](https://pdf.cdn.readpaper.com/parsed/fetch_target/522a86da182392db5e9ba9f951ad8aa1_4_Figure_2.png)
 
 ![fig3](https://pdf.cdn.readpaper.com/parsed/fetch_target/522a86da182392db5e9ba9f951ad8aa1_6_Figure_3.png)
