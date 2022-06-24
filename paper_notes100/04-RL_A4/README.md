@@ -79,3 +79,6 @@ This inner term is the expected reward in a state under policy $\pi$. The outer 
 ## 7. Discussion and Future Work
 
 ![fig3](https://pdf.cdn.readpaper.com/parsed/fetch_target/522a86da182392db5e9ba9f951ad8aa1_6_Figure_3.png)
+
+> 我们必须指定一个状态的分布 $\mu(s) \geqslant 0, \quad \sum_{s} \mu(s)=1$ 来表示我们对于每个状态 $s$ 的误差的重视程度. 通常情况下, 我们将在状态 $s$ 上消耗的计算时间的比例定为$\mu(s)$ ***(see: B3, Chapter 9.2)***
+> 在同轨策略中称其为*同轨策略分布*,在持续性任务中,同轨策略分布是$\pi$下的平稳分布.
