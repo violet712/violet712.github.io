@@ -27,6 +27,41 @@
 	color: var(--vscode-editorError-foreground);
 }
 
+/* From extension ms-toolsai.jupyter */
+/* These classnames are inherited from bootstrap, but are present in most notebook renderers */
+
+.alert {
+    width: auto;
+    padding: 1em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+.alert > *:last-child {
+    margin-bottom: 0;
+}
+#preview > .alert:last-child {
+    /* Prevent this being set to zero by the default notebook stylesheet */
+    padding-bottom: 1em;
+}
+
+.alert-success {
+    /* Note there is no suitable color available, so we just copy "info" */
+    background-color: var(--theme-info-background);
+    color: var(--theme-info-foreground);
+}
+.alert-info {
+    background-color: var(--theme-info-background);
+    color: var(--theme-info-foreground);
+}
+.alert-warning {
+    background-color: var(--theme-warning-background);
+    color: var(--theme-warning-foreground);
+}
+.alert-danger {
+    background-color: var(--theme-error-background);
+    color: var(--theme-error-foreground);
+}
+
 </style>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css" integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
 <link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
@@ -57,6 +92,16 @@
 </ol>
 <p>All of our algorithms are based on using the temporal-difference error rather than the conventional error when updating the estimate of the average reward. Our proof techniques are a slight generalization of those by xxx(2001). In experiments with an Access-Control Queuing Task, we show some of the difficulties that can arise when using methods that rely on reference states and argue that our new algorithms can be significantly easier to use.</p>
 </blockquote>
+<h2 id="0-背景知识-discounted-reinforcement-learning-is-not-an-optimization-problem">0. 背景知识 (Discounted Reinforcement Learning Is Not an Optimization Problem)</h2>
+<h3 id="introduction">Introduction</h3>
+<p>Reinforcement learning (RL) is a paradigm in which an agent learns to interact with an environment in order to maximize reward [Sutton and Barto, 2018]. Many interesting RL problems concern continuing tasks in which the agent lives and learns over a single lifetime, rather than experiencing a sequence of distinct episodes. Some examples of continuing tasks include routing internet packets, managing the inventory in a warehouse, and controlling the temperature in a data center.</p>
+<p>In continuing tasks, it is common practice to value immediate rewards more highly than rewards further in the future — this is called temporal discounting. One reason is that the sum of future rewards (which is finite for episodic tasks) can grow to infinity as the agent and environment continually interact. With discounting the sum of the infinitely many future rewards remains bounded even when the length of the interaction does not. In this paper, we take the position that this common practice has serious conceptual flaws and should be carefully reconsidered.</p>
+<p><strong>Q. 什么是平均收益?</strong><br>
+A.</p>
+<p><strong>Q. 为什么在持续性任务中放弃折扣回报,转而使用平均收益?</strong><br>
+A.</p>
+<p><strong>Q. Discounted Reinforcement Learning Is Not an Optimization Problem (why?)</strong><br>
+A. Discounted reinforcement learning is fundamentally incompatible with function approximation for control in continuing tasks. <em>It is not an optimization problem in its usual formulation, so when using function approximation there is no optimal policy</em>. We substantiate these claims, then go on to address some misconceptions about discounting and its connection to the average reward formulation. We encourage researchers to adopt rigorous optimization approaches, such as maximizing average reward, for reinforcement learning in continuing tasks.</p>
 <h2 id="1-average-reward-learning-and-planning">1. Average-Reward Learning and Planning</h2>
 <p>In the average-reward setting, experience is continuing (not broken up into episodes) and the agent seeks to maximize the average reward per step, or reward rate, with equal weight given to immediate and delayed rewards.</p>
 <p>In addition to this <em>control</em> problem, there is also the <em>Prediction</em> problem of estimating the value function and the reward rate for a given <em>target policy</em>.<br>
@@ -69,15 +114,14 @@ Solution methods for these problems can be divided into,</p>
 <blockquote>
 <p>基于模型的方法将<strong>规划</strong>作为其主要组成部分, 而无模型的方法则主要依赖于<strong>学习</strong>. 这两类方法的核心都是价值函数的计算. 此外, 所有的方法都基于对未来事件的展望, 来计算一个回溯价值, 然后使用它作为目标来更新一个近似价值函数. 强化学习中，初始的环境是未知的，智能体与环境进行交互，然后智能体提升自身的策略；而规划方法中，环境的模型是已知的，智能体不需与环境进行交互，只需根据其模型来做计算，然后提升策略.</p>
 </blockquote>
-<p><em><strong>前置知识</strong></em></p>
 <blockquote>
-<p><strong>RVI Q-learning:</strong> relative value iteration (RVI) Q-learning,</p>
+<p><strong>RVI Q-learning:</strong> relative value iteration (RVI) Q-learning.</p>
 </blockquote>
 <blockquote>
 <p><strong>reference function (引用函数):</strong> RVI Q-learning is actually a family of off-policy algorithms, a particular member of which is determined by <em>specifying a function that references the estimated values of specific state–action pairs and produces an estimate of the reward rate</em>.</p>
 </blockquote>
 <blockquote>
-<p>We assume that under the target policy there is only one possible limiting distribution for the resulting Markov chain, independent of the start state. This is known as the Markov chain being <em>unichain</em>.</p>
+<p><strong>unchain:</strong> We assume that under the target policy there is only one possible limiting distribution for the resulting Markov chain, independent of the start state. This is known as the Markov chain being <em>unichain</em>.</p>
 </blockquote>
 <p><strong>创新点:</strong></p>
 <ol>
@@ -90,7 +134,7 @@ Solution methods for these problems can be divided into,</p>
 <li>
 <p>Our second contribution is <em>Differential TD-learning</em>, the first off-policy model-free prediction learning algorithm proved convergent to the reward rate and differential value function of the target policy.</p>
 <ul>
-<li>There are a number of algorithms that estimate the reward rate (e.g., Wen et al. 2020, Liu et al. 2018, Tang et al. 2019, Mousavi et al. 2020, Zhang et al. 2020a,b), but none that estimate the value function. These algorithms also differ from Differential TD-learning in that are not online algorithms; they operate on a fixed batch of data. Finally, they differ in that they estimate the ratio of the steady-state occupancy distributions under the target and behavior policies, whereas Differential TD-learning does not.</li>
+<li>There are a number of algorithms that estimate the reward rate (e.g., Wen et al. 2020, Liu et al. 2018, Tang et al. 2019, Mousavi et al. 2020, Zhang et al. 2020a,b), but none that estimate the value function. These algorithms also differ from Differential TD-learning in that are not online algorithms; they operate on a fixed batch of data. Finally, they differ in that they <em>estimate the ratio of the steady-state occupancy distributions</em> under the target and behavior policies, whereas Differential TD-learning does not.</li>
 </ul>
 </li>
 <li>
@@ -124,6 +168,13 @@ r(\pi) &amp; \doteq \lim _{h \rightarrow \infty} \frac{1}{h} \sum_{t=1}^{h} \mat
 <h2 id="6-estimating-the-actual-differential-value-function">6. Estimating the Actual Differential Value Function</h2>
 <h2 id="7-discussion-and-future-work">7. Discussion and Future Work</h2>
 <p><img src="https://pdf.cdn.readpaper.com/parsed/fetch_target/522a86da182392db5e9ba9f951ad8aa1_6_Figure_3.png" alt="fig3"></p>
+<blockquote>
+<p>我们必须指定一个状态的分布 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">)</mo><mo>⩾</mo><mn>0</mn><mo separator="true">,</mo><mspace width="1em"/><msub><mo>∑</mo><mi>s</mi></msub><mi>μ</mi><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">)</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\mu(s) \geqslant 0, \quad \sum_{s} \mu(s)=1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">μ</span><span class="mopen">(</span><span class="mord mathnormal">s</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel amsrm">⩾</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.0497em;vertical-align:-0.2997em;"></span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:1em;"></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop"><span class="mop op-symbol small-op" style="position:relative;top:0em;">∑</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.0017em;"><span style="top:-2.4003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">s</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2997em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">μ</span><span class="mopen">(</span><span class="mord mathnormal">s</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span> 来表示我们对于每个状态 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi></mrow><annotation encoding="application/x-tex">s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">s</span></span></span></span> 的误差的重视程度. 通常情况下, 我们将在状态 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi></mrow><annotation encoding="application/x-tex">s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">s</span></span></span></span> 上消耗的计算时间的比例定为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\mu(s)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">μ</span><span class="mopen">(</span><span class="mord mathnormal">s</span><span class="mclose">)</span></span></span></span> <em><strong>(see: B3, Chapter 9.2)</strong></em><br>
+在同轨策略中称其为<em>同轨策略分布</em>,在持续性任务中,同轨策略分布是<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>π</mi></mrow><annotation encoding="application/x-tex">\pi</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">π</span></span></span></span>下的平稳分布.</p>
+</blockquote>
+<h2 id="appendix">Appendix</h2>
+<hr>
+<p><strong>RMSVE (TVR)</strong>: <em><strong>(see: A4-Sup.1, Chapter C.4, 3.rd paragraph)</strong></em></p>
 
         <script async src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
         
