@@ -61,6 +61,10 @@ def train_on_policy_agent(env, agent, num_episodes):
 
 
 def train_off_policy_agent(env, agent, num_episodes, replay_buffer, minimal_size, batch_size):
+    '''
+    Args:
+    minimal_size: the minimum size of the replay buffer to start training
+    '''
     return_list = []
     for i in range(10):
         with tqdm(total=int(num_episodes/10), desc='Iteration %d' % i) as pbar:
@@ -74,6 +78,7 @@ def train_off_policy_agent(env, agent, num_episodes, replay_buffer, minimal_size
                     replay_buffer.add(state, action, reward, next_state, done)
                     state = next_state
                     episode_return += reward
+                    # * if the replay buffer is large enough, start training
                     if replay_buffer.size() > minimal_size:
                         b_s, b_a, b_r, b_ns, b_d = replay_buffer.sample(
                             batch_size)
