@@ -81,7 +81,7 @@ def train_off_policy_agent(env, agent, num_episodes, replay_buffer, minimal_size
                     # * if the replay buffer is large enough, start training
                     if replay_buffer.size() > minimal_size:
                         b_s, b_a, b_r, b_ns, b_d = replay_buffer.sample(
-                            batch_size)
+                            batch_size)  # 从replay buffer中随机采样一个batch_size的数据
                         transition_dict = {
                             'states': b_s, 'actions': b_a, 'next_states': b_ns, 'rewards': b_r, 'dones': b_d}
                         agent.update(transition_dict)
@@ -97,8 +97,8 @@ def compute_advantage(gamma, lmbda, td_delta):
     td_delta = td_delta.detach().numpy()
     advantage_list = []
     advantage = 0.0
-    for delta in td_delta[::-1]:
-        advantage = gamma * lmbda * advantage + delta
+    for delta in td_delta[::-1]:  # 倒序取值
+        advantage = gamma * lmbda * advantage + delta  # ? 这什么公式
         advantage_list.append(advantage)
     advantage_list.reverse()
     return torch.tensor(advantage_list, dtype=torch.float)
