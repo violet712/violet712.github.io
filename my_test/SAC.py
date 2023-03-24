@@ -10,18 +10,21 @@ import matplotlib.pyplot as plt
 
 import rl_utils
 
-device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
+device = torch.device(
+    "cuda") if torch.cuda.is_available() else torch.device("cpu")
 
 
 class PolicyNet(torch.nn.Module):
     '''
     输入state维度的张量,输出action维度的张量,张量和为1
     '''
+
     def __init__(self, state_dim, hidden_dim, action_dim):
         super(PolicyNet, self).__init__()
         # self.fc1 = torch.nn.Linear(state_dim, hidden_dim) #todo 换成con2d
         # self.fc2 = torch.nn.Linear(hidden_dim, action_dim)
-        self.fc1 = torch.nn.Conv2d(in_channels=state_dim, out_channels=hidden_dim, kernel_size=3)
+        self.fc1 = torch.nn.Conv2d(
+            in_channels=state_dim, out_channels=hidden_dim, kernel_size=3)
         self.fc2 = torch.nn.Conv2d(hidden_dim, action_dim, 3)
 
     def forward(self, x):
@@ -31,6 +34,7 @@ class PolicyNet(torch.nn.Module):
 
 class QValueNet(torch.nn.Module):
     ''' 只有一层隐藏层的Q网络,输入为state,输出为动作价值(action dimension) '''
+
     def __init__(self, state_dim, hidden_dim, action_dim):
         super(QValueNet, self).__init__()
         # self.fc1 = torch.nn.Linear(state_dim, hidden_dim)
@@ -38,11 +42,12 @@ class QValueNet(torch.nn.Module):
 
     def forward(self, x):
         x = F.relu(self.fc1(x))
-        return self.fc2(x)     
-    
-    
+        return self.fc2(x)
+
+
 class SAC:
     ''' 处理离散动作的SAC算法 '''
+
     def __init__(self, state_dim, hidden_dim, action_dim, actor_lr, critic_lr,
                  alpha_lr, target_entropy, tau, gamma, device):
         # 策略网络
@@ -151,10 +156,10 @@ class SAC:
         self.log_alpha_optimizer.step()
 
         self.soft_update(self.critic_1, self.target_critic_1)
-        self.soft_update(self.critic_2, self.target_critic_2) 
+        self.soft_update(self.critic_2, self.target_critic_2)
 
-  
-if __name__ == '__main__':        
+
+if __name__ == '__main__':
     actor_lr = 1e-3
     critic_lr = 1e-2
     alpha_lr = 1e-2
@@ -173,17 +178,17 @@ if __name__ == '__main__':
     action_dim = np.array(env.action_space.shape).shape[0]
     # action_dim = env.action_space.n
     replay_buffer = rl_utils.ReplayBuffer(buffer_size)
-    
+
     agent = SAC(state_dim, hidden_dim, action_dim, actor_lr, critic_lr, alpha_lr,
                 target_entropy, tau, gamma, device)
 
     return_list = rl_utils.train_off_policy_agent(env, agent, num_episodes,
-                                                replay_buffer, minimal_size,
-                                                batch_size)
+                                                  replay_buffer, minimal_size,
+                                                  batch_size)
 
     episodes_list = list(range(len(return_list)))
     plt.plot(episodes_list, return_list)
     plt.xlabel('Episodes')
     plt.ylabel('Returns')
     plt.title('SAC on {}'.format(env_name))
-    plt.show()    
+    plt.show()

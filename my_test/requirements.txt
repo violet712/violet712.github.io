@@ -6,3 +6,4 @@ torch
 tqdm
 matplotlib
 numpy
+ipykernel
