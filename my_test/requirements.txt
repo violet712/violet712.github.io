@@ -1,0 +1,8 @@
+# pip install -r requirements.txt
+gymnasium
+gymnasium[atari]
+gymnasium[accept-rom-license]
+torch
+tqdm
+matplotlib
+numpy
